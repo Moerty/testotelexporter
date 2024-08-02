@@ -2,7 +2,9 @@ import requests
 import time
 import grpc
 from opentelemetry.proto.collector.trace.v1 import trace_service_pb2_grpc
-from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import ExportTraceServiceRequest
+from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import (
+    ExportTraceServiceRequest,
+)
 from opentelemetry.proto.trace.v1.trace_pb2 import ResourceSpans
 
 
