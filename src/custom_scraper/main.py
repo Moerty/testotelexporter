@@ -5,6 +5,7 @@ from opentelemetry.proto.collector.trace.v1 import trace_service_pb2_grpc
 from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import ExportTraceServiceRequest
 from opentelemetry.proto.trace.v1.trace_pb2 import ResourceSpans
 
+
 def fetch_and_send_traces():
     while True:
         try:
@@ -26,6 +27,7 @@ def fetch_and_send_traces():
             print(f"Failed to send traces: {e}")
 
         time.sleep(60)
+
 
 if __name__ == '__main__':
     fetch_and_send_traces()
