@@ -28,7 +28,7 @@ def fetch_and_send_traces():
         except requests.RequestException as e:
             print(f"Failed to fetch traces: {e}")
         except grpc.RpcError as e:
-            print(f"Failed to send traces: {e}")
+            print(f"fFailed to send traces: {e}")
 
         time.sleep(60)
 
