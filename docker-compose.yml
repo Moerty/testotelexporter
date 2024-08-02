@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  trace-sender:
+    build: .
+    environment:
+      - TRACE_URL=https://your-trace-url
+      - GRPC_SERVER=your-grpc-server
+      - FETCH_INTERVAL=60

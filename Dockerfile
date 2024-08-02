@@ -1,31 +1,22 @@
-# Stage 1: Build the dependencies
-FROM python:3.9-slim as builder
-
-# Set environment variables for security
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
-
-# Install dependencies
-WORKDIR /app
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Stage 2: Create the final image
+# Use the official Python image from the Docker Hub
 FROM python:3.9-slim
 
-# Create a non-root user and switch to it
-RUN addgroup --system otel && adduser --system --ingroup otel otel
-USER otel
-
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy installed dependencies from the builder stage
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
+# Copy the requirements.txt file into the container
+COPY requirements.txt .
 
-# Copy the application code
-COPY --chown=otel:otel src /app/src
+# Install the Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Run the application
-CMD ["python", "/app/src/custom_scraper/main.py"]
+# Copy the application code into the container
+COPY src/ /app/src/
+
+# Set environment variables (can also be overridden by Docker run command or Compose)
+ENV TRACE_URL=https://example.com/traces
+ENV GRPC_SERVER=otel-collector:4317
+ENV FETCH_INTERVAL=60
+
+# Run the Python script
+CMD ["python", "/app/src/script.py"]
