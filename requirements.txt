@@ -1,0 +1,4 @@
+requests
+grpcio
+protobuf
+opentelemetry-proto
