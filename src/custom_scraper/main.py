@@ -19,7 +19,9 @@ def fetch_and_send_traces():
 
             with grpc.insecure_channel('otel-collector:4317') as channel:
                 stub = trace_service_pb2_grpc.TraceServiceStub(channel)
-                request = ExportTraceServiceRequest(resource_spans=[resource_spans])
+                request = ExportTraceServiceRequest(
+                    resource_spans=[resource_spans]
+                )
                 stub.Export(request)
 
             print("Traces sent successfully")
